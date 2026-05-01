@@ -5,8 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "anthropic>=0.97.0",
     "asyncpg>=0.31.0",
     "fastapi>=0.136.1",
+    "openai>=2.33.0",
+    "opentelemetry-distro>=0.62b1",
+    "opentelemetry-instrumentation>=0.62b1",
     "pydantic-settings>=2.14.0",
     "uvicorn>=0.35.0",
 ]
