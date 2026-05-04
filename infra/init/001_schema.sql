@@ -6,13 +6,15 @@ CREATE TABLE documents (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   filename TEXT NOT NULL,
   source_type VARCHAR(20) NOT NULL CHECK (source_type IN ('pdf','docx','image','csv','url','text')),
-  content_hash TEXT UNIQUE NOT NULL,
+  content_hash TEXT NOT NULL,
   metadata JSONB NOT NULL DEFAULT '{}',
   pipeline_id UUID,
   status VARCHAR(20) NOT NULL DEFAULT 'processing',
   chunk_count INT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+CREATE UNIQUE INDEX documents_pipeline_hash_uq
+  ON documents (pipeline_id, content_hash);
 
 CREATE TABLE chunks (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
