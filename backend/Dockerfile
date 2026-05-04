@@ -21,5 +21,6 @@ subprocess.check_call(
 PY
 
 COPY backend/ .
+COPY pipelines/ ./pipelines
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

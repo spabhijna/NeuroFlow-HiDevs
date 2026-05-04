@@ -1,5 +1,9 @@
 from fastapi import Depends, Header
-from db.connection import get_connection
+
+try:
+    from backend.db.connection import get_connection
+except ModuleNotFoundError:
+    from db.connection import get_connection
 
 async def get_pipeline_id(x_pipeline_id: str = Header(...)):
     return x_pipeline_id

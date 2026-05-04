@@ -54,6 +54,10 @@ services:
     container_name: neuroflow-api
     ports:
       - "8000:8000"
+    environment:
+      - INGEST_STORAGE_DIR=/app/data/ingestion
+    volumes:
+      - ingestion_data:/app/data/ingestion
     depends_on:
       postgres:
         condition: service_healthy
@@ -76,7 +80,11 @@ services:
       context: ..
       dockerfile: backend/Dockerfile
     container_name: neuroflow-worker
-    command: python -m worker
+    command: arq pipelines.ingestion.worker.WorkerSettings
+    environment:
+      - INGEST_STORAGE_DIR=/app/data/ingestion
+    volumes:
+      - ingestion_data:/app/data/ingestion
     depends_on:
       postgres:
         condition: service_healthy
@@ -94,3 +102,4 @@ services:
 
 volumes:
   postgres_data:
+  ingestion_data:
