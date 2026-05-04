@@ -1,5 +1,9 @@
 from fastapi import APIRouter, Depends
-from api.dependencies import get_db_conn
+
+try:
+    from backend.api.dependencies import get_db_conn
+except ModuleNotFoundError:
+    from api.dependencies import get_db_conn
 
 router = APIRouter()
 

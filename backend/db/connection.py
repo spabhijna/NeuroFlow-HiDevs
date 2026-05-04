@@ -1,5 +1,9 @@
 from contextlib import asynccontextmanager
-from db import pool as db_pool
+
+try:
+    from backend.db import pool as db_pool
+except ModuleNotFoundError:
+    from db import pool as db_pool
 @asynccontextmanager
 async def get_connection(pipeline_id: str):
     async with db_pool.pool.acquire() as conn:
